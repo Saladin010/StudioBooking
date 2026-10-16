@@ -1,0 +1,11 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/StudioBooking.Api/StudioBooking.Api.csproj" />
+    <Project Path="src/StudioBooking.Application/StudioBooking.Application.csproj" />
+    <Project Path="src/StudioBooking.Domain/StudioBooking.Domain.csproj" />
+    <Project Path="src/StudioBooking.Infrastructure/StudioBooking.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/StudioBooking.Domain.UnitTests/StudioBooking.Domain.UnitTests.csproj" />
+  </Folder>
+</Solution>
