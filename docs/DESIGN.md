@@ -46,9 +46,10 @@ All colors are strictly light-mode surfaces with dark carbon ink and calibrated 
 
   /* Carbon Ink & Typography */
   --color-ink-primary: #181615;      /* Headings, high-emphasis text, primary icons */
-  --color-ink-secondary: #5C5852;    /* Supporting labels, captions, metadata */
-  --color-ink-tertiary: #6E685F;     /* Subtle captions, form placeholders */
-  --color-ink-disabled: #9C968D;     /* Disabled text & controls */
+  --color-ink-secondary: #5C5852;    /* Supporting labels, metadata */
+  --color-ink-caption: #403D39;      /* Darker caption (13px): 10.80:1 on white, 9.16:1 on recessed */
+  --color-ink-tertiary: #6E685F;     /* Form placeholders, subtle cues */
+  --color-ink-disabled: #6D6862;     /* Corrected from #9C968D: 5.52:1 on white, 4.68:1 on recessed (>= 4.5:1) */
 
   /* Hairlines & Borders */
   --color-border-hairline: #DCD7CD;  /* Standard card and container hairline (1px) */
@@ -63,73 +64,82 @@ All colors are strictly light-mode surfaces with dark carbon ink and calibrated 
 }
 ```
 
-### 2.2 Contrast Ratio Matrix (WCAG AA Verification)
+### 2.2 Contrast Ratio Matrix (Actual WCAG AA & AAA Measurements)
 
-| Foreground Token | Value | Background Token | Value | Contrast Ratio | WCAG Compliance |
-|---|---|---|---|---|---|
-| `--color-ink-primary` | `#181615` | `--color-bg-base` | `#F7F5F0` | **15.35:1** | AAA (Normal & Large) |
-| `--color-ink-primary` | `#181615` | `--color-bg-surface` | `#FFFFFF` | **16.90:1** | AAA (Normal & Large) |
-| `--color-ink-primary` | `#181615` | `--color-bg-recessed` | `#EFECE6` | **14.10:1** | AAA (Normal & Large) |
-| `--color-ink-secondary`| `#5C5852` | `--color-bg-base` | `#F7F5F0` | **6.52:1** | AA (Normal) / AAA (Large) |
-| `--color-ink-secondary`| `#5C5852` | `--color-bg-surface` | `#FFFFFF` | **7.19:1** | AA (Normal) / AAA (Large) |
-| `--color-ink-tertiary` | `#6E685F` | `--color-bg-surface` | `#FFFFFF` | **4.98:1** | AA (Normal) |
-| `--color-bg-surface` (White Text) | `#FFFFFF` | `--color-accent-safelight` | `#C43214` | **5.61:1** | AA (Normal & Large) |
-| `--color-bg-surface` (White Text) | `#FFFFFF` | `--color-accent-safelight-hover` | `#A8270E` | **7.24:1** | AAA (Normal & Large) |
-| `--color-accent-safelight` | `#C43214` | `--color-accent-safelight-tint` | `#FCEEEA` | **4.82:1** | AA (Normal & Large) |
+Every text-to-background pairing is strictly tested to guarantee an actual contrast ratio of $\ge 4.5:1$ (normal text) and $\ge 3.0:1$ (graphical elements). Muted/disabled text was explicitly corrected from `#9C968D` ($2.49:1$) to `#6D6862` ($4.68:1$) to eliminate sub-threshold contrast.
+
+| Foreground Token | Hex | Background Token | Hex | Actual Contrast Ratio | WCAG Compliance | Correction Notes |
+|---|---|---|---|---|---|---|
+| `--color-ink-primary` | `#181615` | `--color-bg-base` | `#F7F5F0` | **16.55:1** | AAA (Normal & Large) | Fully compliant |
+| `--color-ink-primary` | `#181615` | `--color-bg-surface` | `#FFFFFF` | **18.03:1** | AAA (Normal & Large) | Fully compliant |
+| `--color-ink-primary` | `#181615` | `--color-bg-recessed` | `#EFECE6` | **15.30:1** | AAA (Normal & Large) | Fully compliant |
+| `--color-ink-secondary`| `#5C5852` | `--color-bg-base` | `#F7F5F0` | **6.48:1** | AA (Normal) / AAA (Large) | Fully compliant |
+| `--color-ink-secondary`| `#5C5852` | `--color-bg-surface` | `#FFFFFF` | **7.06:1** | AA (Normal) / AAA (Large) | Fully compliant |
+| `--color-ink-secondary`| `#5C5852` | `--color-bg-recessed` | `#EFECE6` | **5.99:1** | AA (Normal & Large) | Fully compliant |
+| `--color-ink-caption` (13px)| `#403D39` | `--color-bg-surface` | `#FFFFFF` | **10.80:1** | AAA (Normal & Large) | **Updated darker caption** |
+| `--color-ink-caption` (13px)| `#403D39` | `--color-bg-recessed` | `#EFECE6` | **9.16:1** | AAA (Normal & Large) | **Updated darker caption** |
+| `--color-ink-caption` (13px)| `#403D39` | `--color-bg-base` | `#F7F5F0` | **9.91:1** | AAA (Normal & Large) | **Updated darker caption** |
+| `--color-bg-surface` (White Text)| `#FFFFFF`| `--color-accent-safelight`| `#C43214`| **5.51:1** | AA (Normal & Large) | Fully compliant |
+| `--color-bg-surface` (White Text)| `#FFFFFF`| `--color-accent-safelight-hover`| `#A8270E`| **7.09:1** | AAA (Normal & Large) | Fully compliant |
+| `--color-accent-safelight` | `#C43214` | `--color-accent-safelight-tint` | `#FCEEEA` | **4.87:1** | AA (Normal & Large) | Fully compliant |
+| `--color-accent-safelight` | `#C43214` | `--color-bg-surface` | `#FFFFFF` | **5.51:1** | AA (Normal & Large) | Fully compliant |
+| `--color-ink-disabled` (Corrected)| `#6D6862` | `--color-bg-recessed` | `#EFECE6` | **4.68:1** | AA (Normal) | **Corrected from #9C968D (was 2.49:1)** |
+| `--color-ink-disabled` (Corrected)| `#6D6862` | `--color-bg-surface` | `#FFFFFF` | **5.52:1** | AA (Normal) | **Corrected from #9C968D (was 2.93:1)** |
 
 ### 2.3 Status Badge Colors (Aligned with `spec.md`)
 
-Each booking and studio status defined in the domain specification maps to a disciplined, analog darkroom tonal badge:
+Each booking and studio status defined in the domain specification maps to a disciplined, analog darkroom tonal badge with verified actual contrast:
 
-| Status Enum | Arabic Label | Text Token | Text Hex | Surface Hex | Border Hex | Contrast Ratio |
-|---|---|---|---|---|---|---|
-| `Draft` | مسودة | `--badge-draft-text` | `#403D39` | `#EFECE6` | `#DCD7CD` | **8.52:1** (AAA) |
-| `PendingApproval` | قيد المراجعة | `--badge-pending-text` | `#784D06` | `#FAF1DC` | `#EAD7A6` | **6.21:1** (AA) |
-| `Approved` | معتمد | `--badge-approved-text` | `#1E5631` | `#EBF4EC` | `#BEDBC0` | **6.84:1** (AA) |
-| `Rejected` | مرفوض | `--badge-rejected-text` | `#7A2828` | `#FAECEC` | `#E8C4C4` | **6.15:1** (AA) |
-| `Suspended` | معلق | `--badge-suspended-text` | `#614B3D` | `#F4EFEA` | `#D9CCC1` | **7.12:1** (AA) |
-| `PendingPayment` | بانتظار الدفع | `--badge-pending-text` | `#784D06` | `#FAF1DC` | `#EAD7A6` | **6.21:1** (AA) |
-| `Confirmed` | مؤكد | `--badge-confirmed-text` | `#1E5631` | `#EBF4EC` | `#BEDBC0` | **6.84:1** (AA) |
-| `PaymentFailed` | تعذر الدفع | `--badge-failed-text` | `#7A2828` | `#FAECEC` | `#E8C4C4` | **6.15:1** (AA) |
-| `Completed` | مكتمل | `--badge-completed-text` | `#181615` | `#EFECE6` | `#DCD7CD` | **14.10:1** (AAA) |
-| `Cancelled` | ملغى | `--badge-cancelled-text` | `#5C5852` | `#EFECE6` | `#DCD7CD` | **5.98:1** (AA) |
-| `CancelledByOwner` | ملغى من الاستوديو | `--badge-owner-cancel-text` | `#7A2828` | `#FAECEC` | `#E8C4C4` | **6.15:1** (AA) |
-| `Disputed` | قيد النزاع | `--badge-disputed-text` | `#96280E` | `#FCEEEA` | `#F4BFB2` | **5.73:1** (AA) |
-| `DisputeResolved` | تم حل النزاع | `--badge-resolved-text` | `#2C3E50` | `#ECF0F3` | `#CBD5E1` | **7.41:1** (AA) |
+| Status Enum | Arabic Label | Text Token | Text Hex | Surface Hex | Border Hex | Actual Contrast | WCAG Rating |
+|---|---|---|---|---|---|---|---|
+| `Draft` | مسودة | `--badge-draft-text` | `#403D39` | `#EFECE6` | `#DCD7CD` | **9.16:1** | AAA |
+| `PendingApproval` | قيد المراجعة | `--badge-pending-text` | `#784D06` | `#FAF1DC` | `#EAD7A6` | **6.53:1** | AA |
+| `Approved` | معتمد | `--badge-approved-text` | `#1E5631` | `#EBF4EC` | `#BEDBC0` | **7.69:1** | AA |
+| `Rejected` | مرفوض | `--badge-rejected-text` | `#7A2828` | `#FAECEC` | `#E8C4C4` | **8.45:1** | AA |
+| `Suspended` | معلق | `--badge-suspended-text` | `#614B3D` | `#F4EFEA` | `#D9CCC1` | **7.12:1** | AA |
+| `PendingPayment` | بانتظار الدفع | `--badge-pending-text` | `#784D06` | `#FAF1DC` | `#EAD7A6` | **6.53:1** | AA |
+| `Confirmed` | مؤكد | `--badge-confirmed-text` | `#1E5631` | `#EBF4EC` | `#BEDBC0` | **7.69:1** | AA |
+| `PaymentFailed` | تعذر الدفع | `--badge-failed-text` | `#7A2828` | `#FAECEC` | `#E8C4C4` | **8.45:1** | AA |
+| `Completed` | مكتمل | `--badge-completed-text` | `#181615` | `#EFECE6` | `#DCD7CD` | **15.30:1** | AAA |
+| `Cancelled` | ملغى | `--badge-cancelled-text` | `#5C5852` | `#EFECE6` | `#DCD7CD` | **5.99:1** | AA |
+| `CancelledByOwner` | ملغى من الاستوديو | `--badge-owner-cancel-text` | `#7A2828` | `#FAECEC` | `#E8C4C4` | **8.45:1** | AA |
+| `Disputed` | قيد النزاع | `--badge-disputed-text` | `#96280E` | `#FCEEEA` | `#F4BFB2` | **7.12:1** | AA |
+| `DisputeResolved` | تم حل النزاع | `--badge-resolved-text` | `#2C3E50` | `#ECF0F3` | `#CBD5E1` | **9.58:1** | AAA |
 
 ---
 
 ## 3. Typography Architecture
 
-### 3.1 Typeface Selection
-- **Display & Headings**: **`Reem Kufi`** (Google Fonts)
+### 3.1 Typeface Selection & Strict Size Thresholds
+- **Large Display Headings ($\ge 28\text{px}$ ONLY)**: **`Reem Kufi`** (Google Fonts)
   - Geometric Kufic proportions with modern architectural precision.
-  - Used for studio names, page hero titles, section headlines, and receipt headers.
-  - Banned alternatives: Cairo, Tajawal, Inter, Helvetica, or system sans.
-- **Body, UI & Form Elements**: **`IBM Plex Sans Arabic`** (Google Fonts)
+  - **Strict Threshold**: Used **exclusively** for display sizes $\ge 28\text{px}$ (`Display 1`: 36px, `Display 2`: 28px).
+  - Prohibited for any headings $< 28\text{px}$ to preserve legibility and optical density.
+- **Headings $< 28\text{px}$, Body, UI & Form Elements**: **`IBM Plex Sans Arabic`** (Google Fonts)
+  - All headings $< 28\text{px}$ (`Heading 1`: 22px, `Heading 2`: 18px, Card titles, Section headers, Modal titles, Receipt titles) strictly use **`IBM Plex Sans Arabic SemiBold`** (weight 600).
   - Engineered for clarity at small sizes, functional legibility, and technical precision.
   - Used for navigation, buttons, form inputs, metadata, and badge labels.
-- **Numerical Figures**:
+- **Numerical Figures & Bidirectional Isolation**:
   - **Western Digits (`0–9`)** are used for all prices, durations, capacities, dates, and times.
   - Standardized with tabular figure alignment:
     ```css
     font-variant-numeric: tabular-nums lining-nums;
     font-feature-settings: "tnum" 1, "lnum" 1;
     ```
-  - For tabular columns in receipts and Time Ribbon slots, prices use `font-variant-numeric: tabular-nums`.
+  - All times, prices, percentages, and reference codes MUST be wrapped in `<bdi>` (or `dir="ltr"`) to prevent RTL text reversal.
 
 ### 3.2 Type Scale (Base 16px)
 
-| Scale Step | Size (rem / px) | Line Height | Weight | Typeface | Typical Usage |
+| Scale Step | Size (rem / px) | Line Height | Weight | Typeface | Size Rule & Typical Usage |
 |---|---|---|---|---|---|
-| `display-1` | `2.25rem` (36px) | `1.2` (44px) | `700` Bold | Reem Kufi | Studio detail title, Marketplace hero |
-| `display-2` | `1.75rem` (28px) | `1.25` (36px) | `700` Bold | Reem Kufi | Dashboard section titles, modal headers |
-| `heading-1` | `1.375rem` (22px) | `1.3` (28px) | `600` SemiBold | Reem Kufi | Studio card titles, section headers |
-| `heading-2` | `1.125rem` (18px) | `1.35` (24px) | `600` SemiBold | Reem Kufi | Space room names, receipt subheaders |
-| `body-lg` | `1.000rem` (16px) | `1.6` (26px) | `400` / `500` | IBM Plex Sans Arabic | Space descriptions, intro paragraphs |
-| `body-base` | `0.875rem` (14px) | `1.5` (22px) | `400` / `500` | IBM Plex Sans Arabic | Default UI, table cells, form labels |
-| `caption` | `0.750rem` (12px) | `1.4` (17px) | `500` Medium | IBM Plex Sans Arabic | Metadata, helper texts, ribbon time tags |
-| `micro` | `0.6875rem` (11px) | `1.3` (15px) | `600` SemiBold | IBM Plex Sans Arabic | Status badges, receipt serial IDs |
+| `display-1` | `2.25rem` (36px) | `1.2` (44px) | `700` Bold | **Reem Kufi** | $\ge 28\text{px}$ · Studio detail hero, Marketplace hero |
+| `display-2` | `1.75rem` (28px) | `1.25` (36px) | `700` Bold | **Reem Kufi** | $\ge 28\text{px}$ · Major page titles, modal master headers |
+| `heading-1` | `1.375rem` (22px) | `1.3` (28px) | `600` SemiBold | **IBM Plex Sans Arabic** | $< 28\text{px}$ · Studio card titles, section headers |
+| `heading-2` | `1.125rem` (18px) | `1.35` (24px) | `600` SemiBold | **IBM Plex Sans Arabic** | $< 28\text{px}$ · Space room names, receipt subheaders |
+| `body-lg` | `1.000rem` (16px) | `1.6` (26px) | `400` / `500` | **IBM Plex Sans Arabic** | Space descriptions, intro paragraphs |
+| `body-base` | `0.875rem` (14px) | `1.5` (22px) | `400` / `500` | **IBM Plex Sans Arabic** | Default UI, table cells, form labels |
+| `caption` | `0.8125rem` (13px) | `1.4` (18px) | `500` Medium | **IBM Plex Sans Arabic** | **13px & Darker Color (`#403D39`)** · Metadata, time tags |
+| `micro` | `0.6875rem` (11px) | `1.3` (15px) | `600` SemiBold | **IBM Plex Sans Arabic** | Status badges, receipt serial IDs |
 
 ---
 
@@ -205,6 +215,30 @@ The product is built **RTL-first** for the Arabic language. All styling uses CSS
   ```
 - **Non-Mirrored**: Symmetrical, circular, or universal real-world equipment icons (camera, microphone, clock, calendar, slider, play/pause, checkmark, close 'x').
 
+### 5.3 Section & Step Numbering in RTL
+- **Banned**: Plain text numbers with a period (e.g. `3.` or `1.`) directly inside RTL text flow. In bidirectional rendering engines, trailing ASCII periods swap to the wrong side of the digit or attach erratically to the preceding/succeeding Arabic words.
+- **Required**:
+  1. **CSS Counters**: Using pseudo-elements with leading zeros:
+     ```css
+     .section-title::before {
+       counter-increment: section;
+       content: counter(section, decimal-leading-zero) ". ";
+       color: var(--color-accent-safelight);
+       direction: ltr;
+       display: inline-block;
+       margin-inline-end: 0.5rem;
+     }
+     ```
+  2. **Isolated Spans**: Explicit `<span class="section-num" dir="ltr">01.</span>`, `<span dir="ltr">02.</span>`, `<span dir="ltr">03.</span>` with `direction: ltr` and `display: inline-block`.
+
+### 5.4 Bidirectional Isolation (`<bdi>`) for Dynamic Values
+In an Arabic RTL reading flow, numeric tokens containing hyphens, colons, slashes, or Latin suffixes (such as time spans, monetary figures, and reference identifiers) easily trigger BiDi transposition bugs (e.g., `09:00 - 23:00` inverting visually into `23:00 - 09:00`).
+- **Strict Rule**: Every time range, monetary price, percentage, and serial code **MUST** be wrapped in a `<bdi>` element (or given an explicit `dir="ltr"` attribute):
+  - **Times**: `<bdi dir="ltr">09:00 - 23:00</bdi>`, `<bdi dir="ltr">11:00 - 13:00</bdi>`, `<bdi dir="ltr">15m</bdi>`
+  - **Prices & Currency**: `<bdi dir="ltr">180.00</bdi> ر.س`, `<bdi dir="ltr">20%</bdi>`
+  - **Reference IDs**: `<bdi dir="ltr">#SB-9841</bdi>`, `<bdi dir="ltr">AST-2026-SA</bdi>`
+  - **Timezones & Numeric Ranges**: `<bdi dir="ltr">AST UTC+3</bdi>`, `<bdi dir="ltr">0–9</bdi>`
+
 ---
 
 ## 6. Motion & Accessibility
@@ -258,7 +292,7 @@ The Time Ribbon is the core booking interaction. It replaces conventional vertic
    - Sub-label displays remaining hold time (e.g., `12:45 متبقية`).
    - Unavailable for selection until expired.
 4. **Booked (`محجوز`)**:
-   - Surface: `#EFECE6`, Border: `1px solid #E6E2D8`, Text: `#9C968D`.
+   - Surface: `#EFECE6`, Border: `1px solid #E6E2D8`, Text: `#6D6862` (Corrected token `--color-ink-disabled`, $\ge 4.5:1$).
    - Diagonal subtle analog strikethrough. Cursor: `not-allowed`.
    - `aria-disabled="true"`.
 
@@ -320,9 +354,9 @@ The booking summary is visually styled as an analog photographic darkroom contac
   - Shadow: strictly `none` at rest; subtle `0 2px 6px rgba(24, 22, 21, 0.05)` on hover with `translateY(-2px)`.
 - **Content Hierarchy**:
   1. Studio Photo with category tag overlaid top-start (`تصوير سينمائي`, `تسجيل صوتي`, `بودكاست`).
-  2. Studio Name in `Reem Kufi` (`18px` / SemiBold).
-  3. Space category, capacity icon with Western number (`4 أشخاص`).
-  4. Hourly Rate Snapshot in prominent tabular figures (`180 ر.س / ساعة`).
+  2. Studio Name in **`IBM Plex Sans Arabic SemiBold`** (`18px` $< 28\text{px}$).
+  3. Space category, capacity icon with Western number (`<bdi dir="ltr">4</bdi>` أشخاص).
+  4. Hourly Rate Snapshot in prominent tabular figures (`<bdi dir="ltr">180.00</bdi> ر.س / ساعة`).
 
 ---
 
@@ -342,7 +376,7 @@ The booking summary is visually styled as an analog photographic darkroom contac
   cursor: pointer;
   transition: background-color 150ms cubic-bezier(0.16, 1, 0.3, 1);
 }
-.btn-primary:hover {
+.btn-primary:hover:not(:disabled):not([aria-disabled="true"]) {
   background-color: var(--color-accent-safelight-hover); /* #A8270E */
 }
 .btn-primary:focus-visible {
@@ -358,7 +392,7 @@ The booking summary is visually styled as an analog photographic darkroom contac
   border-radius: var(--radius-sm);
   padding: 0.625rem 1.25rem;
 }
-.btn-secondary:hover {
+.btn-secondary:hover:not(:disabled):not([aria-disabled="true"]) {
   background-color: var(--color-bg-muted);    /* #E6E2D8 */
 }
 
@@ -369,10 +403,30 @@ The booking summary is visually styled as an analog photographic darkroom contac
   border: 1px solid #E8C4C4;
   border-radius: var(--radius-sm);
 }
-.btn-destructive:hover {
+.btn-destructive:hover:not(:disabled):not([aria-disabled="true"]) {
   background-color: #F5D8D8;
 }
+
+/* Disabled Button (Flat, Muted, Zero Shadow, Not-Allowed, aria-disabled) */
+.btn:disabled,
+.btn[aria-disabled="true"] {
+  background-color: var(--color-bg-recessed) !important;
+  color: var(--color-ink-disabled) !important; /* #6D6862: verified >= 4.5:1 */
+  border: 1px solid var(--color-border-hairline) !important;
+  box-shadow: none !important;
+  text-shadow: none !important;
+  cursor: not-allowed !important;
+  opacity: 0.65;
+  filter: grayscale(100%);
+  transform: none !important;
+}
 ```
+
+#### Disabled Button Invariants
+- **Flat Surface**: Completely stripped of elevation, gradients, or bevels (`background-color: var(--color-bg-recessed)`).
+- **Muted Contrast**: Inherits corrected token `--color-ink-disabled: #6D6862` ensuring accessible contrast $\ge 4.5:1$ against the recessed background.
+- **Zero Shadow**: Enforces `box-shadow: none !important` and `transform: none !important` across all hover, active, and focus states.
+- **Accessibility & Cursor**: Always marked with `cursor: not-allowed !important;`, `disabled`, and `aria-disabled="true"` for full screen-reader and keyboard accessibility.
 
 ---
 
@@ -402,7 +456,7 @@ The booking summary is visually styled as an analog photographic darkroom contac
   - Border: `1px solid var(--color-border-hairline)`.
   - Radius: `6px` (`--radius-md`).
   - Shadow: `0 12px 32px rgba(24, 22, 21, 0.16)`.
-- **Header**: Reem Kufi display title with close button anchored at `inset-inline-end: 16px`.
+- **Header**: `Reem Kufi` for master modal titles $\ge 28\text{px}$, or `IBM Plex Sans Arabic SemiBold` for dialog headers $< 28\text{px}$, with close button anchored at `inset-inline-end: 16px`.
 
 ---
 
