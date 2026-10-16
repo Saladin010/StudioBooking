@@ -13,6 +13,8 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>, IAsyn
         .WithPassword("postgres")
         .Build();
 
+    public string ConnectionString => _dbContainer.GetConnectionString();
+
     public async Task InitializeAsync()
     {
         await _dbContainer.StartAsync();
