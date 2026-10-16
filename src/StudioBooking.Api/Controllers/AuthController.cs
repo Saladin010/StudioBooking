@@ -3,7 +3,9 @@ using System.Security.Claims;
 using System.Text;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using StudioBooking.Infrastructure.Persistence;
 
 namespace StudioBooking.Api.Controllers;
 
@@ -12,18 +14,26 @@ namespace StudioBooking.Api.Controllers;
 public class AuthController : ControllerBase
 {
     private readonly IConfiguration _configuration;
+    private readonly ApplicationDbContext _dbContext;
 
-    public AuthController(IConfiguration configuration)
+    public AuthController(IConfiguration configuration, ApplicationDbContext dbContext)
     {
         _configuration = configuration;
+        _dbContext = dbContext;
     }
 
     [HttpPost("token")]
-    public IActionResult GenerateToken([FromBody] TokenRequest request)
+    public async Task<IActionResult> GenerateToken([FromBody] TokenRequest request)
     {
         if (string.IsNullOrWhiteSpace(request.Email))
         {
             return BadRequest(new { message = "Email is required." });
+        }
+
+        var user = await _dbContext.Users.FirstOrDefaultAsync(u => u.Email == request.Email);
+        if (user == null)
+        {
+            return Unauthorized(new { message = "User not found." });
         }
 
         var jwtSection = _configuration.GetSection("Jwt");
@@ -33,9 +43,11 @@ public class AuthController : ControllerBase
 
         var claims = new[]
         {
-            new Claim(JwtRegisteredClaimNames.Sub, request.Email),
-            new Claim(JwtRegisteredClaimNames.Email, request.Email),
-            new Claim(ClaimTypes.Name, request.Email),
+            new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
+            new Claim(JwtRegisteredClaimNames.Email, user.Email),
+            new Claim(ClaimTypes.Name, user.Email),
+            new Claim(ClaimTypes.Role, user.Role),
+            new Claim("role", user.Role),
             new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
         };
 
@@ -68,8 +80,9 @@ public class AuthController : ControllerBase
             ?? User.Identity?.Name;
 
         var name = User.FindFirstValue(ClaimTypes.Name) ?? email;
+        var role = User.FindFirstValue(ClaimTypes.Role) ?? User.FindFirstValue("role");
 
-        return Ok(new { email, name });
+        return Ok(new { email, name, role });
     }
 }
 

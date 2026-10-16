@@ -40,7 +40,7 @@ app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.MapGet("/health", async (StudioBookingDbContext dbContext) =>
+app.MapGet("/health", async (ApplicationDbContext dbContext) =>
 {
     try
     {
