@@ -31,3 +31,5 @@ app.MapGet("/health", async (StudioBookingDbContext dbContext) =>
 app.MapControllers();
 
 app.Run();
+
+public partial class Program { }

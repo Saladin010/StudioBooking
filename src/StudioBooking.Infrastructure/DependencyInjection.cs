@@ -9,11 +9,14 @@ public static class DependencyInjection
 {
     public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
-        var connectionString = configuration.GetConnectionString("Default")
-            ?? throw new InvalidOperationException("Connection string 'Default' was not found.");
+        services.AddDbContext<StudioBookingDbContext>((serviceProvider, options) =>
+        {
+            var config = serviceProvider.GetRequiredService<IConfiguration>();
+            var connectionString = config.GetConnectionString("Default")
+                ?? throw new InvalidOperationException("Connection string 'Default' was not found.");
 
-        services.AddDbContext<StudioBookingDbContext>(options =>
-            options.UseNpgsql(connectionString));
+            options.UseNpgsql(connectionString);
+        });
 
         return services;
     }

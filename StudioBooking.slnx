@@ -6,6 +6,7 @@
     <Project Path="src/StudioBooking.Infrastructure/StudioBooking.Infrastructure.csproj" />
   </Folder>
   <Folder Name="/tests/">
+    <Project Path="tests/StudioBooking.Api.IntegrationTests/StudioBooking.Api.IntegrationTests.csproj" />
     <Project Path="tests/StudioBooking.Domain.UnitTests/StudioBooking.Domain.UnitTests.csproj" />
   </Folder>
 </Solution>
