@@ -1,0 +1,1155 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>استوديو | Darkroom Design System Preview</title>
+  
+  <!-- Typography: Reem Kufi (Headings) & IBM Plex Sans Arabic (Body/UI) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Reem+Kufi:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* CSS Variables: Darkroom Design System */
+    :root {
+      /* Surfaces */
+      --color-bg-base: #F7F5F0;
+      --color-bg-surface: #FFFFFF;
+      --color-bg-recessed: #EFECE6;
+      --color-bg-muted: #E6E2D8;
+
+      /* Ink */
+      --color-ink-primary: #181615;
+      --color-ink-secondary: #5C5852;
+      --color-ink-tertiary: #6E685F;
+      --color-ink-disabled: #9C968D;
+
+      /* Hairlines */
+      --color-border-hairline: #DCD7CD;
+      --color-border-strong: #BCB5A8;
+
+      /* Safelight Red-Orange Accent */
+      --color-accent-safelight: #C43214;
+      --color-accent-safelight-hover: #A8270E;
+      --color-accent-safelight-active: #8E200B;
+      --color-accent-safelight-tint: #FCEEEA;
+      --color-accent-safelight-border: #F4BFB2;
+
+      /* Status Badge Colors */
+      --badge-draft-text: #403D39;
+      --badge-draft-bg: #EFECE6;
+      --badge-draft-border: #DCD7CD;
+
+      --badge-pending-text: #784D06;
+      --badge-pending-bg: #FAF1DC;
+      --badge-pending-border: #EAD7A6;
+
+      --badge-approved-text: #1E5631;
+      --badge-approved-bg: #EBF4EC;
+      --badge-approved-border: #BEDBC0;
+
+      --badge-rejected-text: #7A2828;
+      --badge-rejected-bg: #FAECEC;
+      --badge-rejected-border: #E8C4C4;
+
+      --badge-suspended-text: #614B3D;
+      --badge-suspended-bg: #F4EFEA;
+      --badge-suspended-border: #D9CCC1;
+
+      --badge-disputed-text: #96280E;
+      --badge-disputed-bg: #FCEEEA;
+      --badge-disputed-border: #F4BFB2;
+
+      --badge-resolved-text: #2C3E50;
+      --badge-resolved-bg: #ECF0F3;
+      --badge-resolved-border: #CBD5E1;
+
+      /* Typography */
+      --font-display: 'Reem Kufi', sans-serif;
+      --font-body: 'IBM Plex Sans Arabic', sans-serif;
+
+      /* Radii */
+      --radius-sm: 4px;
+      --radius-md: 6px;
+      --radius-sharp: 0px;
+    }
+
+    /* Base Reset & Setup */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--color-bg-base);
+      color: var(--color-ink-primary);
+      font-family: var(--font-body);
+      font-size: 14px;
+      line-height: 1.5;
+      padding: 2.5rem 1.5rem 5rem;
+      -webkit-font-smoothing: antialiased;
+      direction: rtl;
+    }
+
+    /* Tabular figures for all numbers/prices */
+    .tabular {
+      font-variant-numeric: tabular-nums lining-nums;
+      font-feature-settings: "tnum" 1, "lnum" 1;
+    }
+
+    /* Container */
+    .preview-container {
+      max-width: 1040px;
+      margin-inline: auto;
+    }
+
+    /* Masthead */
+    .masthead {
+      border-bottom: 1px solid var(--color-border-hairline);
+      padding-bottom: 2rem;
+      margin-bottom: 3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+    }
+
+    .brand-mark {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .safelight-dot {
+      width: 12px;
+      height: 12px;
+      background-color: var(--color-accent-safelight);
+      border-radius: 50%;
+      display: inline-block;
+      box-shadow: 0 0 8px rgba(196, 50, 20, 0.4);
+    }
+
+    .brand-title {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      color: var(--color-ink-primary);
+    }
+
+    .brand-subtitle {
+      font-size: 0.875rem;
+      color: var(--color-ink-secondary);
+      margin-top: 0.25rem;
+    }
+
+    .masthead-meta {
+      text-align: end;
+      font-size: 0.8125rem;
+      color: var(--color-ink-secondary);
+      border-inline-start: 1px solid var(--color-border-hairline);
+      padding-inline-start: 1.25rem;
+    }
+
+    /* Section Styling */
+    .preview-section {
+      background: var(--color-bg-surface);
+      border: 1px solid var(--color-border-hairline);
+      border-radius: var(--radius-md);
+      padding: 2rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .section-header {
+      margin-bottom: 1.75rem;
+      border-bottom: 1px solid var(--color-bg-recessed);
+      padding-bottom: 0.75rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--color-ink-primary);
+    }
+
+    .section-note {
+      font-size: 0.75rem;
+      color: var(--color-ink-secondary);
+    }
+
+    /* 1. Palette Grid */
+    .palette-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+      gap: 1rem;
+    }
+
+    .swatch-card {
+      border: 1px solid var(--color-border-hairline);
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      background: #FFFFFF;
+    }
+
+    .swatch-color {
+      height: 64px;
+      width: 100%;
+      border-bottom: 1px solid var(--color-border-hairline);
+    }
+
+    .swatch-info {
+      padding: 0.75rem;
+    }
+
+    .swatch-name {
+      font-weight: 600;
+      font-size: 0.8125rem;
+      color: var(--color-ink-primary);
+    }
+
+    .swatch-hex {
+      font-size: 0.75rem;
+      color: var(--color-ink-secondary);
+      margin-top: 2px;
+      font-family: monospace;
+      direction: ltr;
+      text-align: end;
+    }
+
+    .swatch-ratio {
+      margin-top: 0.35rem;
+      display: inline-block;
+      font-size: 0.6875rem;
+      font-weight: 600;
+      padding: 1px 6px;
+      border-radius: 2px;
+      background: var(--color-bg-recessed);
+      color: var(--color-ink-secondary);
+    }
+
+    /* 2. Type Scale */
+    .type-row {
+      display: flex;
+      align-items: baseline;
+      padding: 1rem 0;
+      border-bottom: 1px solid var(--color-bg-recessed);
+      gap: 2rem;
+    }
+
+    .type-row:last-child {
+      border-bottom: none;
+    }
+
+    .type-meta {
+      width: 200px;
+      flex-shrink: 0;
+      font-size: 0.75rem;
+      color: var(--color-ink-secondary);
+    }
+
+    .type-meta strong {
+      display: block;
+      color: var(--color-ink-primary);
+      font-size: 0.8125rem;
+    }
+
+    .type-sample {
+      flex-grow: 1;
+      color: var(--color-ink-primary);
+    }
+
+    /* 3. Buttons */
+    .btn-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .btn {
+      font-family: var(--font-body);
+      font-size: 0.875rem;
+      font-weight: 500;
+      padding: 0.625rem 1.25rem;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: background-color 150ms cubic-bezier(0.16, 1, 0.3, 1), border-color 150ms ease;
+      text-decoration: none;
+      line-height: 1;
+    }
+
+    .btn:focus-visible {
+      outline: 2px solid var(--color-ink-primary);
+      outline-offset: 2px;
+    }
+
+    .btn-primary {
+      background-color: var(--color-accent-safelight);
+      color: #FFFFFF;
+      border: 1px solid var(--color-accent-safelight-hover);
+    }
+
+    .btn-primary:hover {
+      background-color: var(--color-accent-safelight-hover);
+    }
+
+    .btn-secondary {
+      background-color: var(--color-bg-recessed);
+      color: var(--color-ink-primary);
+      border: 1px solid var(--color-border-hairline);
+    }
+
+    .btn-secondary:hover {
+      background-color: var(--color-bg-muted);
+    }
+
+    .btn-outline {
+      background-color: transparent;
+      color: var(--color-ink-primary);
+      border: 1px solid var(--color-border-strong);
+    }
+
+    .btn-outline:hover {
+      background-color: var(--color-bg-recessed);
+    }
+
+    .btn-destructive {
+      background-color: #FAECEC;
+      color: #7A2828;
+      border: 1px solid #E8C4C4;
+    }
+
+    .btn-destructive:hover {
+      background-color: #F5D8D8;
+    }
+
+    .btn:disabled, .btn[aria-disabled="true"] {
+      background-color: var(--color-bg-recessed);
+      color: var(--color-ink-disabled);
+      border-color: var(--color-border-hairline);
+      cursor: not-allowed;
+    }
+
+    /* 4. Badges */
+    .badge-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.25rem 0.625rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.75rem;
+      font-weight: 600;
+      line-height: 1.2;
+      border: 1px solid transparent;
+    }
+
+    .badge-draft { background: var(--badge-draft-bg); color: var(--badge-draft-text); border-color: var(--badge-draft-border); }
+    .badge-pending { background: var(--badge-pending-bg); color: var(--badge-pending-text); border-color: var(--badge-pending-border); }
+    .badge-approved { background: var(--badge-approved-bg); color: var(--badge-approved-text); border-color: var(--badge-approved-border); }
+    .badge-rejected { background: var(--badge-rejected-bg); color: var(--badge-rejected-text); border-color: var(--badge-rejected-border); }
+    .badge-suspended { background: var(--badge-suspended-bg); color: var(--badge-suspended-text); border-color: var(--badge-suspended-border); }
+    .badge-confirmed { background: var(--badge-approved-bg); color: var(--badge-approved-text); border-color: var(--badge-approved-border); }
+    .badge-completed { background: var(--color-bg-recessed); color: var(--color-ink-primary); border-color: var(--color-border-hairline); }
+    .badge-cancelled { background: var(--color-bg-recessed); color: var(--color-ink-secondary); border-color: var(--color-border-hairline); }
+    .badge-failed { background: var(--badge-rejected-bg); color: var(--badge-rejected-text); border-color: var(--badge-rejected-border); }
+    .badge-disputed { background: var(--badge-disputed-bg); color: var(--badge-disputed-text); border-color: var(--badge-disputed-border); }
+    .badge-resolved { background: var(--badge-resolved-bg); color: var(--badge-resolved-text); border-color: var(--badge-resolved-border); }
+
+    /* 5. Signature Component: Time Ribbon */
+    .ribbon-wrapper {
+      background: var(--color-bg-recessed);
+      border: 1px solid var(--color-border-hairline);
+      border-radius: var(--radius-sm);
+      padding: 1.25rem;
+    }
+
+    .ribbon-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+      font-size: 0.8125rem;
+      color: var(--color-ink-secondary);
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .ribbon-meta-tag {
+      background: var(--color-bg-surface);
+      border: 1px solid var(--color-border-hairline);
+      padding: 0.2rem 0.5rem;
+      border-radius: var(--radius-sm);
+      color: var(--color-ink-primary);
+      font-weight: 600;
+    }
+
+    .time-ribbon {
+      display: flex;
+      gap: 0.5rem;
+      overflow-x: auto;
+      padding-bottom: 0.5rem;
+      scrollbar-width: thin;
+      scrollbar-color: var(--color-border-strong) transparent;
+    }
+
+    .time-ribbon::-webkit-scrollbar {
+      height: 4px;
+    }
+    .time-ribbon::-webkit-scrollbar-thumb {
+      background: var(--color-border-strong);
+      border-radius: 2px;
+    }
+
+    .ribbon-slot {
+      flex: 0 0 96px;
+      height: 72px;
+      background: #FFFFFF;
+      border: 1px solid var(--color-border-hairline);
+      border-radius: var(--radius-sm);
+      padding: 0.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      cursor: pointer;
+      user-select: none;
+      transition: all 120ms ease;
+      text-align: start;
+      position: relative;
+    }
+
+    .ribbon-slot:hover:not(.slot-booked):not(.slot-held):not(.slot-selected) {
+      background: var(--color-bg-recessed);
+      border-color: var(--color-border-strong);
+    }
+
+    .ribbon-slot:focus-visible {
+      outline: 2px solid var(--color-ink-primary);
+      outline-offset: 1px;
+    }
+
+    .slot-time {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--color-ink-primary);
+    }
+
+    .slot-status {
+      font-size: 0.6875rem;
+      color: var(--color-ink-secondary);
+      white-space: nowrap;
+    }
+
+    /* Slot States */
+    .slot-selected {
+      background: var(--color-accent-safelight) !important;
+      border-color: var(--color-accent-safelight-hover) !important;
+      color: #FFFFFF !important;
+    }
+    .slot-selected .slot-time,
+    .slot-selected .slot-status {
+      color: #FFFFFF !important;
+    }
+
+    .slot-held {
+      background: var(--badge-pending-bg) !important;
+      border: 1px dashed var(--badge-pending-border) !important;
+      cursor: not-allowed;
+    }
+    .slot-held .slot-time {
+      color: var(--badge-pending-text);
+    }
+    .slot-held .slot-status {
+      color: var(--badge-pending-text);
+      font-weight: 500;
+    }
+
+    .slot-booked {
+      background: var(--color-bg-recessed) !important;
+      border-color: var(--color-border-hairline) !important;
+      cursor: not-allowed;
+      opacity: 0.75;
+    }
+    .slot-booked .slot-time {
+      color: var(--color-ink-disabled);
+      text-decoration: line-through;
+    }
+    .slot-booked .slot-status {
+      color: var(--color-ink-disabled);
+    }
+
+    .ribbon-summary-bar {
+      margin-top: 1.25rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--color-border-hairline);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .ribbon-selection-text {
+      font-size: 0.875rem;
+      color: var(--color-ink-primary);
+    }
+
+    /* 6. Signature Component: Receipt Ticket */
+    .receipt-container {
+      max-width: 440px;
+      margin-inline: auto;
+      background: #FFFFFF;
+      border-inline: 1px solid var(--color-border-hairline);
+      border-top: 2px dashed var(--color-border-strong);
+      border-bottom: 2px dashed var(--color-border-strong);
+      padding: 1.75rem 1.5rem;
+      position: relative;
+    }
+
+    .receipt-header {
+      text-align: center;
+      margin-bottom: 1.25rem;
+      border-bottom: 1px solid var(--color-bg-recessed);
+      padding-bottom: 1rem;
+    }
+
+    .receipt-studio-title {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--color-ink-primary);
+    }
+
+    .receipt-serial {
+      font-size: 0.6875rem;
+      color: var(--color-ink-secondary);
+      letter-spacing: 0.5px;
+      margin-top: 2px;
+    }
+
+    .receipt-line {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.4rem 0;
+      font-size: 0.8125rem;
+      color: var(--color-ink-secondary);
+    }
+
+    .receipt-line.total-line {
+      border-top: 1px solid var(--color-border-hairline);
+      margin-top: 0.5rem;
+      padding-top: 0.75rem;
+      font-size: 0.9375rem;
+      font-weight: 600;
+      color: var(--color-ink-primary);
+    }
+
+    .receipt-line.deposit-line {
+      color: var(--color-accent-safelight);
+      font-weight: 600;
+    }
+
+    .receipt-stamp {
+      display: inline-block;
+      margin-top: 1rem;
+      border: 1px solid var(--badge-approved-border);
+      background: var(--badge-approved-bg);
+      color: var(--badge-approved-text);
+      font-size: 0.6875rem;
+      font-weight: 700;
+      padding: 0.2rem 0.6rem;
+      border-radius: var(--radius-sm);
+    }
+
+    /* 7. Studio Card Preview */
+    .studio-card-demo {
+      max-width: 360px;
+      background: #FFFFFF;
+      border: 1px solid var(--color-border-hairline);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      transition: transform 150ms ease, box-shadow 150ms ease;
+    }
+
+    .studio-card-demo:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(24, 22, 21, 0.05);
+    }
+
+    .studio-card-img-wrap {
+      height: 180px;
+      background: #2B2826;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #9C968D;
+      font-size: 0.8125rem;
+    }
+
+    .studio-card-badge-pos {
+      position: absolute;
+      top: 12px;
+      inset-inline-start: 12px;
+      background: rgba(24, 22, 21, 0.85);
+      color: #FFFFFF;
+      padding: 2px 8px;
+      font-size: 0.6875rem;
+      border-radius: 2px;
+    }
+
+    .studio-card-body {
+      padding: 1.25rem;
+    }
+
+    .studio-card-name {
+      font-family: var(--font-display);
+      font-size: 1.125rem;
+      font-weight: 600;
+      color: var(--color-ink-primary);
+      margin-bottom: 0.25rem;
+    }
+
+    .studio-card-meta {
+      font-size: 0.75rem;
+      color: var(--color-ink-secondary);
+      margin-bottom: 1rem;
+    }
+
+    .studio-card-foot {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      border-top: 1px solid var(--color-bg-recessed);
+      padding-top: 0.75rem;
+    }
+
+    .studio-rate {
+      font-size: 1.125rem;
+      font-weight: 700;
+      color: var(--color-ink-primary);
+    }
+    .studio-rate span {
+      font-size: 0.75rem;
+      font-weight: 400;
+      color: var(--color-ink-secondary);
+    }
+
+    /* Motion Accessibility */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="preview-container">
+    
+    <!-- Masthead -->
+    <header class="masthead">
+      <div>
+        <div class="brand-mark">
+          <span class="safelight-dot" aria-hidden="true"></span>
+          <h1 class="brand-title">استوديو</h1>
+        </div>
+        <p class="brand-subtitle">نظام التصميم «الغرفة المظلمة» (Darkroom) — منصة حجز استوديوهات الإنتاج الإبداعي</p>
+      </div>
+      <div class="masthead-meta">
+        <div><strong>السوق:</strong> المملكة العربية السعودية (AST UTC+3)</div>
+        <div><strong>العملة:</strong> ريال سعودي (SAR) بأرقام مجدولة (0-9)</div>
+        <div><strong>التوجه:</strong> RTL-first مع خصائص CSS المنطقية</div>
+      </div>
+    </header>
+
+    <!-- 1. Color Palette Tokens & WCAG AA Verification -->
+    <section class="preview-section">
+      <div class="section-header">
+        <h2 class="section-title">1. لوحة الألوان ونسب التباين (WCAG AA)</h2>
+        <span class="section-note">ورق فوتوغرافي دافئ · حبر كربوني نقي · لون أحمر غامق أحادي (Safelight)</span>
+      </div>
+
+      <div class="palette-grid">
+        <!-- Canvas Base -->
+        <div class="swatch-card">
+          <div class="swatch-color" style="background-color: #F7F5F0;"></div>
+          <div class="swatch-info">
+            <div class="swatch-name">قماش الخلفية (Base Paper)</div>
+            <div class="swatch-hex">#F7F5F0</div>
+            <span class="swatch-ratio">السطح الأساسي</span>
+          </div>
+        </div>
+
+        <!-- Pure Surface -->
+        <div class="swatch-card">
+          <div class="swatch-color" style="background-color: #FFFFFF;"></div>
+          <div class="swatch-info">
+            <div class="swatch-name">ورق البطاقات (Surface)</div>
+            <div class="swatch-hex">#FFFFFF</div>
+            <span class="swatch-ratio">بطاقات وإيصالات</span>
+          </div>
+        </div>
+
+        <!-- Recessed -->
+        <div class="swatch-card">
+          <div class="swatch-color" style="background-color: #EFECE6;"></div>
+          <div class="swatch-info">
+            <div class="swatch-name">السطح الغائر (Recessed)</div>
+            <div class="swatch-hex">#EFECE6</div>
+            <span class="swatch-ratio">مسار شريط الوقت</span>
+          </div>
+        </div>
+
+        <!-- Carbon Ink -->
+        <div class="swatch-card">
+          <div class="swatch-color" style="background-color: #181615;"></div>
+          <div class="swatch-info">
+            <div class="swatch-name">حبر كربوني (Carbon Ink)</div>
+            <div class="swatch-hex">#181615</div>
+            <span class="swatch-ratio">تباين 15.35:1 (AAA)</span>
+          </div>
+        </div>
+
+        <!-- Secondary Ink -->
+        <div class="swatch-card">
+          <div class="swatch-color" style="background-color: #5C5852;"></div>
+          <div class="swatch-info">
+            <div class="swatch-name">حبر ثانوي (Secondary Ink)</div>
+            <div class="swatch-hex">#5C5852</div>
+            <span class="swatch-ratio">تباين 6.52:1 (AA)</span>
+          </div>
+        </div>
+
+        <!-- Safelight Red-Orange -->
+        <div class="swatch-card">
+          <div class="swatch-color" style="background-color: #C43214;"></div>
+          <div class="swatch-info">
+            <div class="swatch-name">ضوء الأمان (Safelight Accent)</div>
+            <div class="swatch-hex">#C43214</div>
+            <span class="swatch-ratio">تباين 5.61:1 (AA)</span>
+          </div>
+        </div>
+
+        <!-- Hairline Border -->
+        <div class="swatch-card">
+          <div class="swatch-color" style="background-color: #DCD7CD;"></div>
+          <div class="swatch-info">
+            <div class="swatch-name">خطوط التحديد (Hairline)</div>
+            <div class="swatch-hex">#DCD7CD</div>
+            <span class="swatch-ratio">حدود دقيقة 1px</span>
+          </div>
+        </div>
+
+        <!-- Safelight Tint -->
+        <div class="swatch-card">
+          <div class="swatch-color" style="background-color: #FCEEEA;"></div>
+          <div class="swatch-info">
+            <div class="swatch-name">تظليل نشط (Safelight Tint)</div>
+            <div class="swatch-hex">#FCEEEA</div>
+            <span class="swatch-ratio">خلفية العناصر النشطة</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. Typography Scale -->
+    <section class="preview-section">
+      <div class="section-header">
+        <h2 class="section-title">2. سلم الخطوط الطباعية (Typography Scale)</h2>
+        <span class="section-note">العناوين: Reem Kufi · الواجهة والنصوص: IBM Plex Sans Arabic · أرقام مجدولة (0-9)</span>
+      </div>
+
+      <div>
+        <div class="type-row">
+          <div class="type-meta">
+            <strong>Display 1 (36px / Bold)</strong>
+            Reem Kufi · العناوين الرئيسية
+          </div>
+          <div class="type-sample" style="font-family: var(--font-display); font-size: 2.25rem; font-weight: 700; line-height: 1.2;">
+            استوديوهات التصوير والإنتاج في الرياض
+          </div>
+        </div>
+
+        <div class="type-row">
+          <div class="type-meta">
+            <strong>Display 2 (28px / Bold)</strong>
+            Reem Kufi · عناوين الأقسام
+          </div>
+          <div class="type-sample" style="font-family: var(--font-display); font-size: 1.75rem; font-weight: 700; line-height: 1.25;">
+            تأكيد حجز المساحة الإبداعية
+          </div>
+        </div>
+
+        <div class="type-row">
+          <div class="type-meta">
+            <strong>Heading 1 (22px / SemiBold)</strong>
+            Reem Kufi · بطاقات الاستوديوهات
+          </div>
+          <div class="type-sample" style="font-family: var(--font-display); font-size: 1.375rem; font-weight: 600; line-height: 1.3;">
+            غرفة التسجيل الصوتي المعزولة (Studio A)
+          </div>
+        </div>
+
+        <div class="type-row">
+          <div class="type-meta">
+            <strong>Body Large (16px / Regular)</strong>
+            IBM Plex Sans Arabic · المقدمة والشروحات
+          </div>
+          <div class="type-sample" style="font-size: 1rem; line-height: 1.6; color: var(--color-ink-primary);">
+            مجهزة بأحدث ميكروفونات Neumann U87 وعوازل صوتية بمعايير إذاعية عالمية. الحد الأدنى للحجز ساعتان متتاليتان.
+          </div>
+        </div>
+
+        <div class="type-row">
+          <div class="type-meta">
+            <strong>Body Base (14px / Tabular)</strong>
+            IBM Plex Sans Arabic · الواجهة والأسعار
+          </div>
+          <div class="type-sample tabular" style="font-size: 0.875rem; line-height: 1.5; color: var(--color-ink-primary);">
+            سعر الساعة: <strong>180.00 ر.س</strong> · الدفعة المقدمة 20%: <strong>36.00 ر.س</strong> · ساعات العمل: <strong>09:00 - 23:00 AST</strong>
+          </div>
+        </div>
+
+        <div class="type-row">
+          <div class="type-meta">
+            <strong>Caption (12px / Medium)</strong>
+            IBM Plex Sans Arabic · بيانات توثيقية
+          </div>
+          <div class="type-sample tabular" style="font-size: 0.75rem; line-height: 1.4; color: var(--color-ink-secondary);">
+            الرقم المرجعي: #SB-2026-9810 · نافذة النزاع متاحة لمدة 48 ساعة بعد انتهاء الجلسة.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. Button States -->
+    <section class="preview-section">
+      <div class="section-header">
+        <h2 class="section-title">3. حالات الأزرار (Buttons)</h2>
+        <span class="section-note">انحناء 4px · حواف صلبة · تفاعل محكم بدون ظلال فجة</span>
+      </div>
+
+      <div class="btn-group">
+        <button class="btn btn-primary">تأكيد ودفع الدفعة المقدمة (20%)</button>
+        <button class="btn btn-secondary">عرض تفاصيل المساحة</button>
+        <button class="btn btn-outline">تحميل الإيصال</button>
+        <button class="btn btn-destructive">إلغاء الحجز</button>
+        <button class="btn" disabled>حجز غير متاح</button>
+      </div>
+    </section>
+
+    <!-- 4. Status Badges -->
+    <section class="preview-section">
+      <div class="section-header">
+        <h2 class="section-title">4. شارات الحالات (Status Badges من وثيقة المواصفات)</h2>
+        <span class="section-note">13 حالة معتمدة بمستويات تباين متوافقة مع معيار WCAG AA</span>
+      </div>
+
+      <div class="badge-grid">
+        <span class="badge badge-draft">مسودة (Draft)</span>
+        <span class="badge badge-pending">قيد المراجعة (PendingApproval)</span>
+        <span class="badge badge-approved">معتمد (Approved)</span>
+        <span class="badge badge-rejected">مرفوض (Rejected)</span>
+        <span class="badge badge-suspended">معلق (Suspended)</span>
+        <span class="badge badge-pending">بانتظار الدفع (PendingPayment - 15m)</span>
+        <span class="badge badge-confirmed">مؤكد (Confirmed)</span>
+        <span class="badge badge-failed">تعذر الدفع (PaymentFailed)</span>
+        <span class="badge badge-completed">مكتمل (Completed)</span>
+        <span class="badge badge-cancelled">ملغى (Cancelled)</span>
+        <span class="badge badge-failed">ملغى من الاستوديو (CancelledByOwner)</span>
+        <span class="badge badge-disputed">قيد النزاع (Disputed)</span>
+        <span class="badge badge-resolved">تم حل النزاع (DisputeResolved)</span>
+      </div>
+    </section>
+
+    <!-- 5. Signature Component: Time Ribbon -->
+    <section class="preview-section">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">5. المكون التوقيعي: شريط الوقت (Time Ribbon)</h2>
+          <p style="font-size: 0.8125rem; color: var(--color-ink-secondary); margin-top: 2px;">
+            شريط أفقي تفاعلي لاختيار فترات الحجز بالساعات · تدفق طبيعي من اليمين لليسار (RTL) · يمكن الضغط لتجربة التحديد
+          </p>
+        </div>
+        <span class="section-note">ساعات العمل: 09:00 - 23:00 (نفس اليوم)</span>
+      </div>
+
+      <div class="ribbon-wrapper">
+        <div class="ribbon-meta">
+          <div>
+            <strong>تاريخ الحجز:</strong> الثلاثاء 20 أكتوبر 2026 (الحد الأدنى: ساعتان متتاليتان)
+          </div>
+          <div style="display: flex; gap: 0.5rem; align-items: center;">
+            <span class="ribbon-meta-tag">سعر الساعة: 150 ر.س</span>
+          </div>
+        </div>
+
+        <!-- The Time Ribbon Strip -->
+        <div class="time-ribbon" id="demoRibbon" role="listbox" aria-label="شريط اختيار فترات الحجز">
+          <!-- 09:00 Booked -->
+          <div class="ribbon-slot slot-booked" tabindex="-1" aria-disabled="true" title="محجوز مسبقاً">
+            <span class="slot-time tabular">09:00</span>
+            <span class="slot-status">محجوز</span>
+          </div>
+
+          <!-- 10:00 Booked -->
+          <div class="ribbon-slot slot-booked" tabindex="-1" aria-disabled="true" title="محجوز مسبقاً">
+            <span class="slot-time tabular">10:00</span>
+            <span class="slot-status">محجوز</span>
+          </div>
+
+          <!-- 11:00 Selected (Active) -->
+          <div class="ribbon-slot slot-selected" tabindex="0" role="option" aria-selected="true" data-hour="11">
+            <span class="slot-time tabular">11:00</span>
+            <span class="slot-status">محدد</span>
+          </div>
+
+          <!-- 12:00 Selected (Active) -->
+          <div class="ribbon-slot slot-selected" tabindex="0" role="option" aria-selected="true" data-hour="12">
+            <span class="slot-time tabular">12:00</span>
+            <span class="slot-status">محدد</span>
+          </div>
+
+          <!-- 13:00 Held (15-min countdown) -->
+          <div class="ribbon-slot slot-held" tabindex="-1" aria-disabled="true" title="محجوز مؤقتاً بانتظار الدفع">
+            <span class="slot-time tabular">13:00</span>
+            <span class="slot-status tabular">حجز مؤقت (08:42)</span>
+          </div>
+
+          <!-- 14:00 Available -->
+          <div class="ribbon-slot" tabindex="0" role="option" aria-selected="false" data-hour="14">
+            <span class="slot-time tabular">14:00</span>
+            <span class="slot-status">متاح</span>
+          </div>
+
+          <!-- 15:00 Available -->
+          <div class="ribbon-slot" tabindex="0" role="option" aria-selected="false" data-hour="15">
+            <span class="slot-time tabular">15:00</span>
+            <span class="slot-status">متاح</span>
+          </div>
+
+          <!-- 16:00 Available -->
+          <div class="ribbon-slot" tabindex="0" role="option" aria-selected="false" data-hour="16">
+            <span class="slot-time tabular">16:00</span>
+            <span class="slot-status">متاح</span>
+          </div>
+
+          <!-- 17:00 Available -->
+          <div class="ribbon-slot" tabindex="0" role="option" aria-selected="false" data-hour="17">
+            <span class="slot-time tabular">17:00</span>
+            <span class="slot-status">متاح</span>
+          </div>
+
+          <!-- 18:00 Available -->
+          <div class="ribbon-slot" tabindex="0" role="option" aria-selected="false" data-hour="18">
+            <span class="slot-time tabular">18:00</span>
+            <span class="slot-status">متاح</span>
+          </div>
+
+          <!-- 19:00 Available -->
+          <div class="ribbon-slot" tabindex="0" role="option" aria-selected="false" data-hour="19">
+            <span class="slot-time tabular">19:00</span>
+            <span class="slot-status">متاح</span>
+          </div>
+
+          <!-- 20:00 Available -->
+          <div class="ribbon-slot" tabindex="0" role="option" aria-selected="false" data-hour="20">
+            <span class="slot-time tabular">20:00</span>
+            <span class="slot-status">متاح</span>
+          </div>
+
+          <!-- 21:00 Available -->
+          <div class="ribbon-slot" tabindex="0" role="option" aria-selected="false" data-hour="21">
+            <span class="slot-time tabular">21:00</span>
+            <span class="slot-status">متاح</span>
+          </div>
+
+          <!-- 22:00 Available -->
+          <div class="ribbon-slot" tabindex="0" role="option" aria-selected="false" data-hour="22">
+            <span class="slot-time tabular">22:00</span>
+            <span class="slot-status">متاح</span>
+          </div>
+        </div>
+
+        <div class="ribbon-summary-bar">
+          <div class="ribbon-selection-text">
+            الفترة المحددة: <strong class="tabular" id="selectedTimeText">11:00 - 13:00 (ساعتان)</strong>
+          </div>
+          <div style="display: flex; gap: 1rem; align-items: baseline;">
+            <div style="font-size: 0.8125rem; color: var(--color-ink-secondary);">
+              الدفعة المقدمة (20%): <strong class="tabular" style="color: var(--color-accent-safelight); font-size: 1rem;" id="depositText">60.00 ر.س</strong>
+            </div>
+            <button class="btn btn-primary" style="padding: 0.4rem 1rem;">حجز الفترة</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. Signature Component: Receipt Ticket & Studio Card Grid -->
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 2rem; margin-bottom: 2.5rem;">
+      
+      <!-- Receipt Ticket -->
+      <section class="preview-section" style="margin-bottom: 0;">
+        <div class="section-header">
+          <h2 class="section-title">6. إيصال الحجز (Receipt Ticket)</h2>
+          <span class="section-note">حواف مسننة مثقوبة · خطوط محاسبية مجدولة</span>
+        </div>
+
+        <div class="receipt-container">
+          <div class="receipt-header">
+            <div class="receipt-studio-title">استوديو إشراق للإنتاج</div>
+            <div class="receipt-serial tabular">رقم الحجز: #SB-9841 · الرياض، حي النرجس</div>
+          </div>
+
+          <div class="receipt-line">
+            <span>المساحة</span>
+            <strong>غرفة البودكاست الاحترافية</strong>
+          </div>
+          <div class="receipt-line">
+            <span>الموعد</span>
+            <span class="tabular">الثلاثاء 20 أكتوبر 2026</span>
+          </div>
+          <div class="receipt-line">
+            <span>المدة المحجوزة</span>
+            <span class="tabular">11:00 - 13:00 (2 ساعات)</span>
+          </div>
+          <div class="receipt-line">
+            <span>سعر الساعة</span>
+            <span class="tabular">150.00 ر.س</span>
+          </div>
+
+          <div class="receipt-line total-line">
+            <span>إجمالي تكلفة الحجز</span>
+            <span class="tabular">300.00 ر.س</span>
+          </div>
+
+          <div class="receipt-line deposit-line">
+            <span>الدفعة المقدمة (20% تسدد الآن)</span>
+            <span class="tabular">60.00 ر.س</span>
+          </div>
+
+          <div class="receipt-line">
+            <span>المتبقي في مقر الاستوديو (80%)</span>
+            <span class="tabular">240.00 ر.س</span>
+          </div>
+
+          <div style="text-align: center; margin-top: 1.25rem; border-top: 1px dashed var(--color-border-hairline); padding-top: 1rem;">
+            <span class="receipt-stamp">رمز التأكيد: AST-2026-SA</span>
+            <div style="font-size: 0.6875rem; color: var(--color-ink-secondary); margin-top: 0.5rem;">
+              يمكن إلغاء الحجز واسترداد الدفعة كاملة قبل 24 ساعة من موعد الجلسة
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Image-First Studio Card -->
+      <section class="preview-section" style="margin-bottom: 0;">
+        <div class="section-header">
+          <h2 class="section-title">7. بطاقة استوديو (Studio Card)</h2>
+          <span class="section-note">تركيز بصري على الصورة · حدود دقيقة 1px</span>
+        </div>
+
+        <div style="display: flex; justify-content: center;">
+          <div class="studio-card-demo">
+            <div class="studio-card-img-wrap">
+              <span class="studio-card-badge-pos">تصوير فوتوغرافي وبودكاست</span>
+              <!-- Geometric analog camera lens motif -->
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#736D64" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/>
+                <circle cx="12" cy="13" r="3"/>
+              </svg>
+            </div>
+            <div class="studio-card-body">
+              <h3 class="studio-card-name">استوديو السحاب الإبداعي</h3>
+              <div class="studio-card-meta tabular">
+                الرياض · حي الملقا · السعة: 6 أشخاص · عزل صوتي احترافي
+              </div>
+              <div class="studio-card-foot">
+                <div class="studio-rate tabular">
+                  220.00 <span>ر.س / ساعة</span>
+                </div>
+                <button class="btn btn-secondary" style="padding: 0.35rem 0.85rem; font-size: 0.75rem;">عرض وتوفر المواعيد</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+  </div>
+
+  <script>
+    // Vanilla interactive demo for Time Ribbon
+    const ribbon = document.getElementById('demoRibbon');
+    const selectedText = document.getElementById('selectedTimeText');
+    const depositText = document.getElementById('depositText');
+    const hourlyRate = 150;
+
+    let selectedHours = [11, 12];
+
+    ribbon.addEventListener('click', (e) => {
+      const slot = e.target.closest('.ribbon-slot');
+      if (!slot || slot.classList.contains('slot-booked') || slot.classList.contains('slot-held')) return;
+
+      const hour = parseInt(slot.dataset.hour);
+      if (!hour) return;
+
+      if (selectedHours.includes(hour)) {
+        if (selectedHours.length > 1) {
+          selectedHours = selectedHours.filter(h => h !== hour);
+        }
+      } else {
+        selectedHours.push(hour);
+        selectedHours.sort((a, b) => a - b);
+      }
+
+      // Update slot DOM
+      const allSlots = ribbon.querySelectorAll('.ribbon-slot[data-hour]');
+      allSlots.forEach(s => {
+        const h = parseInt(s.dataset.hour);
+        if (selectedHours.includes(h)) {
+          s.classList.add('slot-selected');
+          s.setAttribute('aria-selected', 'true');
+          s.querySelector('.slot-status').textContent = 'محدد';
+        } else {
+          s.classList.remove('slot-selected');
+          s.setAttribute('aria-selected', 'false');
+          s.querySelector('.slot-status').textContent = 'متاح';
+        }
+      });
+
+      // Update text calculations
+      const minHour = Math.min(...selectedHours);
+      const maxHour = Math.max(...selectedHours) + 1;
+      const hoursCount = selectedHours.length;
+      const totalAmount = hoursCount * hourlyRate;
+      const deposit = (totalAmount * 0.20).toFixed(2);
+
+      selectedText.textContent = `${minHour}:00 - ${maxHour}:00 (${hoursCount} ساعات)`;
+      depositText.textContent = `${deposit} ر.س`;
+    });
+  </script>
+
+</body>
+</html>

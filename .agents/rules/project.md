@@ -16,3 +16,5 @@ trigger: always_on
 - Write tests with every business rule. Run build and tests before saying done.
 - Never add a package or touch files outside the task without asking.
 - Propose a plan first for anything touching more than 3 files.
+   ## Language
+   - Always reply in English in the terminal. The product UI text is Arabic (RTL).
