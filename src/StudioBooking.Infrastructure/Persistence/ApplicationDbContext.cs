@@ -12,10 +12,13 @@ public class ApplicationDbContext : DbContext
 
     public DbSet<User> Users => Set<User>();
     public DbSet<Room> Rooms => Set<Room>();
+    public DbSet<Booking> Bookings => Set<Booking>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
+
+        modelBuilder.HasPostgresExtension("btree_gist");
 
         modelBuilder.Entity<User>(entity =>
         {
@@ -31,6 +34,24 @@ public class ApplicationDbContext : DbContext
             entity.Property(r => r.Name).IsRequired();
             entity.Property(r => r.Capacity).IsRequired();
             entity.Property(r => r.HourlyRate).HasColumnType("decimal(18,2)").IsRequired();
+        });
+
+        modelBuilder.Entity<Booking>(entity =>
+        {
+            entity.HasKey(b => b.Id);
+            entity.Property(b => b.Status).IsRequired();
+            entity.Property(b => b.StartTime).IsRequired();
+            entity.Property(b => b.EndTime).IsRequired();
+
+            entity.HasOne(b => b.Room)
+                .WithMany()
+                .HasForeignKey(b => b.RoomId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            entity.HasOne(b => b.User)
+                .WithMany()
+                .HasForeignKey(b => b.UserId)
+                .OnDelete(DeleteBehavior.Restrict);
         });
     }
 }
