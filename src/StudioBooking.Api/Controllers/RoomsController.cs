@@ -39,6 +39,31 @@ public class RoomsController : ControllerBase
 
         return StatusCode(StatusCodes.Status201Created, new RoomResponse(room.Id, room.Name, room.Capacity, room.HourlyRate));
     }
+
+    [HttpGet("{roomId:guid}/reviews")]
+    [AllowAnonymous]
+    public async Task<IActionResult> GetRoomReviews([FromRoute] Guid roomId)
+    {
+        var reviews = await _dbContext.Reviews
+            .AsNoTracking()
+            .Include(r => r.User)
+            .Where(r => r.RoomId == roomId)
+            .OrderByDescending(r => r.CreatedAt)
+            .ToListAsync();
+
+        var response = reviews.Select(r => new ReviewResponse(
+            r.Id,
+            r.RoomId,
+            r.UserId,
+            r.Rating,
+            r.Comment,
+            r.CreatedAt,
+            r.User?.Email ?? string.Empty,
+            r.User?.Email ?? string.Empty
+        )).ToList();
+
+        return Ok(response);
+    }
 }
 
 public record CreateRoomRequest(string Name, int Capacity, decimal HourlyRate);

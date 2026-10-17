@@ -185,4 +185,108 @@ public class ReviewsEndpointsTests : IClassFixture<CustomWebApplicationFactory>
         postgresException.Should().NotBeNull();
         postgresException!.SqlState.Should().Be("23514"); // check_violation
     }
+
+    [Fact]
+    public async Task GetRoomReviews_WhenRoomHasReviews_Returns200OkWithReviewsListWithoutToken()
+    {
+        // Arrange
+        var room = new Room(Guid.NewGuid(), $"Room_{Guid.NewGuid():N}", 5, 120.00m);
+        var otherRoom = new Room(Guid.NewGuid(), $"Room_{Guid.NewGuid():N}", 2, 60.00m);
+        var customerEmail = $"reviewer_{Guid.NewGuid():N}@example.com";
+        var customer = new User(Guid.NewGuid(), customerEmail, "Customer");
+
+        var review1 = new Review(
+            Guid.NewGuid(),
+            room.Id,
+            customer.Id,
+            5,
+            "Awesome sound isolation and top equipment!",
+            DateTimeOffset.UtcNow.AddMinutes(-10)
+        );
+
+        var review2 = new Review(
+            Guid.NewGuid(),
+            room.Id,
+            customer.Id,
+            4,
+            "Good lighting and comfortable seating.",
+            DateTimeOffset.UtcNow
+        );
+
+        var otherReview = new Review(
+            Guid.NewGuid(),
+            otherRoom.Id,
+            customer.Id,
+            3,
+            "Review for another room.",
+            DateTimeOffset.UtcNow
+        );
+
+        using (var scope = _factory.Services.CreateScope())
+        {
+            var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+            dbContext.Rooms.AddRange(room, otherRoom);
+            dbContext.Users.Add(customer);
+            dbContext.Reviews.AddRange(review1, review2, otherReview);
+            await dbContext.SaveChangesAsync();
+        }
+
+        // Anonymous client without any Authorization token
+        var anonymousClient = _factory.CreateClient();
+
+        // Act
+        var response = await anonymousClient.GetAsync($"/api/rooms/{room.Id}/reviews");
+
+        // Assert
+        response.StatusCode.Should().Be(HttpStatusCode.OK);
+        var reviews = await response.Content.ReadFromJsonAsync<List<ReviewResponse>>();
+        reviews.Should().NotBeNull();
+        reviews!.Should().HaveCount(2);
+
+        // Verify isolation: only this room's reviews are returned
+        reviews.Select(r => r.Id).Should().Contain(new[] { review1.Id, review2.Id });
+        reviews.Select(r => r.Id).Should().NotContain(otherReview.Id);
+
+        // Verify review details and user email
+        var item1 = reviews.Single(r => r.Id == review1.Id);
+        item1.Rating.Should().Be(5);
+        item1.Comment.Should().Be("Awesome sound isolation and top equipment!");
+        item1.RoomId.Should().Be(room.Id);
+        item1.UserId.Should().Be(customer.Id);
+        item1.Email.Should().Be(customerEmail);
+        item1.UserEmail.Should().Be(customerEmail);
+
+        var item2 = reviews.Single(r => r.Id == review2.Id);
+        item2.Rating.Should().Be(4);
+        item2.Comment.Should().Be("Good lighting and comfortable seating.");
+        item2.RoomId.Should().Be(room.Id);
+        item2.UserId.Should().Be(customer.Id);
+        item2.Email.Should().Be(customerEmail);
+        item2.UserEmail.Should().Be(customerEmail);
+    }
+
+    [Fact]
+    public async Task GetRoomReviews_WhenRoomHasNoReviews_Returns200OkWithEmptyList()
+    {
+        // Arrange
+        var room = new Room(Guid.NewGuid(), $"Empty_Room_{Guid.NewGuid():N}", 3, 75.00m);
+        using (var scope = _factory.Services.CreateScope())
+        {
+            var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+            dbContext.Rooms.Add(room);
+            await dbContext.SaveChangesAsync();
+        }
+
+        // Anonymous client without token
+        var anonymousClient = _factory.CreateClient();
+
+        // Act
+        var response = await anonymousClient.GetAsync($"/api/rooms/{room.Id}/reviews");
+
+        // Assert
+        response.StatusCode.Should().Be(HttpStatusCode.OK);
+        var reviews = await response.Content.ReadFromJsonAsync<List<ReviewResponse>>();
+        reviews.Should().NotBeNull();
+        reviews!.Should().BeEmpty();
+    }
 }

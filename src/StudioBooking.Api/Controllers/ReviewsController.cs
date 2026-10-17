@@ -76,5 +76,7 @@ public record ReviewResponse(
     Guid UserId,
     int Rating,
     string Comment,
-    DateTimeOffset CreatedAt
+    DateTimeOffset CreatedAt,
+    string? UserEmail = null,
+    string? Email = null
 );
