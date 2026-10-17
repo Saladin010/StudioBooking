@@ -13,6 +13,7 @@ public class ApplicationDbContext : DbContext
     public DbSet<User> Users => Set<User>();
     public DbSet<Room> Rooms => Set<Room>();
     public DbSet<Booking> Bookings => Set<Booking>();
+    public DbSet<Dispute> Disputes => Set<Dispute>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -51,6 +52,23 @@ public class ApplicationDbContext : DbContext
             entity.HasOne(b => b.User)
                 .WithMany()
                 .HasForeignKey(b => b.UserId)
+                .OnDelete(DeleteBehavior.Restrict);
+        });
+
+        modelBuilder.Entity<Dispute>(entity =>
+        {
+            entity.HasKey(d => d.Id);
+            entity.Property(d => d.Reason).IsRequired();
+            entity.Property(d => d.Status).IsRequired();
+
+            entity.HasOne(d => d.Booking)
+                .WithMany()
+                .HasForeignKey(d => d.BookingId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            entity.HasOne(d => d.Customer)
+                .WithMany()
+                .HasForeignKey(d => d.CustomerId)
                 .OnDelete(DeleteBehavior.Restrict);
         });
     }
