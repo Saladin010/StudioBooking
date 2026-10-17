@@ -60,6 +60,7 @@ public class ApplicationDbContext : DbContext
             entity.HasKey(d => d.Id);
             entity.Property(d => d.Reason).IsRequired();
             entity.Property(d => d.Status).IsRequired();
+            entity.Property(d => d.ResolutionNotes).HasColumnType("text");
 
             entity.HasOne(d => d.Booking)
                 .WithMany()

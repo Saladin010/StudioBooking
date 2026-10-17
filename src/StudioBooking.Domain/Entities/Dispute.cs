@@ -9,6 +9,7 @@ public class Dispute
     public Guid CustomerId { get; set; }
     public string Reason { get; set; } = string.Empty;
     public string Status { get; set; } = "Pending";
+    public string? ResolutionNotes { get; set; }
 
     public Booking? Booking { get; set; }
     public User? Customer { get; set; }
@@ -31,12 +32,13 @@ public class Dispute
     {
     }
 
-    public Dispute(Guid id, Guid bookingId, Guid customerId, string reason, string status = "Pending")
+    public Dispute(Guid id, Guid bookingId, Guid customerId, string reason, string status = "Pending", string? resolutionNotes = null)
     {
         Id = id;
         BookingId = bookingId;
         CustomerId = customerId;
         Reason = reason;
         Status = status;
+        ResolutionNotes = resolutionNotes;
     }
 }

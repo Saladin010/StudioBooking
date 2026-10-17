@@ -80,4 +80,5 @@ public record DisputeResponse(
     Guid CustomerId,
     string Reason,
     string Status,
-    Guid? UserId = null);
+    Guid? UserId = null,
+    string? ResolutionNotes = null);

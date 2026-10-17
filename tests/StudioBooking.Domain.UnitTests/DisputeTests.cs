@@ -25,6 +25,25 @@ public class DisputeTests
         dispute.UserId.Should().Be(customerId);
         dispute.Reason.Should().Be(reason);
         dispute.Status.Should().Be(status);
+        dispute.ResolutionNotes.Should().BeNull();
+    }
+
+    [Fact]
+    public void Constructor_WithResolutionNotes_InitializesResolutionNotes()
+    {
+        // Arrange
+        var id = Guid.NewGuid();
+        var bookingId = Guid.NewGuid();
+        var customerId = Guid.NewGuid();
+        const string reason = "Room was double booked";
+        const string status = "Resolved";
+        const string resolutionNotes = "Refund processed";
+
+        // Act
+        var dispute = new Dispute(id, bookingId, customerId, reason, status, resolutionNotes);
+
+        // Assert
+        dispute.ResolutionNotes.Should().Be(resolutionNotes);
     }
 
     [Fact]
@@ -40,5 +59,6 @@ public class DisputeTests
         dispute.UserId.Should().BeEmpty();
         dispute.Reason.Should().BeEmpty();
         dispute.Status.Should().Be("Pending");
+        dispute.ResolutionNotes.Should().BeNull();
     }
 }
